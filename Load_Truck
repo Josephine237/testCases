@@ -1,0 +1,24 @@
+Feature: Build HU
+
+Scenario: Add HU
+
+    Given insert into handling_unit data object external_id as 444333
+    And insert into handling_unit data object type as @
+    And insert into handling_unit data object created as 2022-06-02T11:02:04.745153Z
+    And set data object handling_unit transport_id as 907807
+    And set data object handling_unit business handling_unit_id as HU898989
+    When recive request to operations with handling_unit object created
+    Then recive response status code 200
+    And data is in transport
+
+Scenario: Remove HU
+
+    Given insert into handling_unit data object external_id as 444555
+    And insert into handling_unit data object type as @
+    And insert into handling_unit data object created as 2022-06-02T11:02:04.745153Z
+    And set data object handling_unit transport_id as 907807
+    And set data object handling_unit business handling_unit_id as HU898989
+    When recive request to operations with handling_unit object removed
+    Then recive response status code 200
+    And data is in transport
+

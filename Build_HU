@@ -1,0 +1,144 @@
+Feature: Build HU
+
+Scenario: Add Parcel to HU 
+    Given insert into parcel data object external_id as 333113
+    And insert into parcel data object type as add_parcel
+    And insert into parcel data object created as 2022-05-19T01:15:02.459860Z
+    And set parcel business_parcel_id as OK12345678
+    And set parcel business_handling_unit_id as HU66666666
+    And set parcel handling_unit_type as Pallet
+    And set parcel created_in as MIL
+    When set POST request to operations with parcel object
+    Then recive response status code 200
+    And data is in Transport
+
+Scenario: Remove parcel
+    Given insert into parcel data object external_id as 333113
+    And insert into parcel data object type as remove_parcel
+    And insert into parcel data object created as 2022-05-19T01:15:02.459860Z
+    And set parcel business_parcel_id as OK12345678
+    And set parcel business_handling_unit_id as HU66666666
+    And set parcel handling_unit_type as Pallet
+    And set parcel created_in as MIL
+    When set POST request to operations with parcel object
+    Then recive response status code 200
+    And data is not in Transport
+
+Scenario: Add same parcell double times
+    Given insert into parcel data object external_id as 333113
+    And insert into parcel data object type as remove_parcel
+    And insert into parcel data object created as 2022-05-19T01:15:02.459860Z
+    And set parcel business_parcel_id as OK12345678
+    And set parcel business_handling_unit_id as HU66666666
+    And set parcel handling_unit_type as Pallet
+    And set parcel created_in as MIL
+    When set POST request to operations with parcel object double times
+    Then appears only once in the transport
+
+Scenario: Remove parcel, add same parcel
+    Given insert into parcel data object external_id as 333113
+    And insert into parcel data object type as remove_parcel
+    And insert into parcel data object created as 2022-05-19T01:15:02.459860Z
+    And set parcel business_parcel_id as OK12345678
+    And set parcel business_handling_unit_id as HU66666666
+    And set parcel handling_unit_type as Pallet
+    And set parcel created_in as MIL
+    And insert into parcel data object external_id as 333113
+    And insert into parcel data object type as add_parcel
+    And insert into parcel data object created as 2022-05-19T01:15:02.459860Z
+    And set parcel business_parcel_id as OK12345678
+    And set parcel business_handling_unit_id as HU66666666
+    And set parcel handling_unit_type as Pallet
+    And set parcel created_in as MIL
+    When set POST request to operations with parcel object 
+    Then parcel will be deleted from the transport
+
+
+
+Scenario: Add parcel, remove same parcel
+    Given insert into parcel data object external_id as 333113
+    And insert into parcel data object type as add_parcel
+    And insert into parcel data object created as 2022-05-19T01:15:02.459860Z
+    And set parcel business_parcel_id as OK12345678
+    And set parcel business_handling_unit_id as HU66666666
+    And set parcel handling_unit_type as Pallet
+    And set parcel created_in as MIL
+    And insert into parcel data object external_id as 333113
+    And insert into parcel data object type as remove_parcel
+    And insert into parcel data object created as 2022-05-19T01:15:02.459860Z
+    And set parcel business_parcel_id as OK12345678
+    And set parcel business_handling_unit_id as HU66666666
+    And set parcel handling_unit_type as Pallet
+    And set parcel created_in as MIL
+    When set POST request to operations with parcel object 
+    Then parcel will be deleted from the transport
+
+
+Scenario: Add parcel, remove parcel, add parcel
+
+    Given insert into parcel data object external_id as 333113
+    And insert into parcel data object type as add_parcel
+    And insert into parcel data object created as 2022-05-19T01:15:02.459860Z
+    And set parcel business_parcel_id as OK12345678
+    And set parcel business_handling_unit_id as HU66666666
+    And set parcel handling_unit_type as Pallet
+    And set parcel created_in as MIL
+    And insert into parcel data object external_id as 333113
+    And insert into parcel data object type as remove_parcel
+    And insert into parcel data object created as 2022-05-19T01:15:02.459860Z
+    And set parcel business_parcel_id as OK12345678
+    And set parcel business_handling_unit_id as HU66666666
+    And set parcel handling_unit_type as Pallet
+    And set parcel created_in as MIL
+    And insert into parcel data object external_id as 333113
+    And insert into parcel data object type as add_parcel
+    And insert into parcel data object created as 2022-05-19T01:15:02.459860Z
+    And set parcel business_parcel_id as OK12345678
+    And set parcel business_handling_unit_id as HU66666666
+    And set parcel handling_unit_type as Pallet
+    And set parcel created_in as MIL
+    When set POST request to operations with parcel object 
+    Then parcel will be in transport
+
+                When add parcel to the transport
+                And then remove that parcel from transport
+                And than add this parcel again
+                Then parcel will be in the transport
+
+Scnario: Remove parcel, add parcel, remove parcel
+
+    Given insert into parcel data object external_id as 333113
+    And insert into parcel data object type as remove_parcel
+    And insert into parcel data object created as 2022-05-19T01:15:02.459860Z
+    And set parcel business_parcel_id as OK12345678
+    And set parcel business_handling_unit_id as HU66666666
+    And set parcel handling_unit_type as Pallet
+    And set parcel created_in as MIL
+    And insert into parcel data object external_id as 333113
+    And insert into parcel data object type as add_parcel
+    And insert into parcel data object created as 2022-05-19T01:15:02.459860Z
+    And set parcel business_parcel_id as OK12345678
+    And set parcel business_handling_unit_id as HU66666666
+    And set parcel handling_unit_type as Pallet
+    And set parcel created_in as MIL
+    And insert into parcel data object external_id as 333113
+    And insert into parcel data object type as remove_parcel
+    And insert into parcel data object created as 2022-05-19T01:15:02.459860Z
+    And set parcel business_parcel_id as OK12345678
+    And set parcel business_handling_unit_id as HU66666666
+    And set parcel handling_unit_type as Pallet
+    And set parcel created_in as MIL
+    When set POST request to operations with parcel object 
+    Then parcel will be waiting for add operation
+    And then will be deleting
+
+                When remove parcel from the transport
+                And add same parcel to the transport
+                And then remove that parcel again
+                Than the delete operation will wait in the DB until scans the parcel to be deleted
+
+Scenario: Chech that HU order than three month i s not in transport
+    When you add parcel with timestamp older then 3 month
+    Then parcell will not be in the transport
+
+Scenario: Check that HU is assigned to the transport
